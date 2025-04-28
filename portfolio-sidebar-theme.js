@@ -4,8 +4,7 @@
  */
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
-import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
-
+import `./portfolio-sidebar.js`;
 /**
  * `portfolio-sidebar-theme`
  * 
@@ -17,6 +16,25 @@ export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
   static get tag() {
     return "portfolio-sidebar-theme";
   }
+
+ constructor()
+ {
+  super();
+  this.pages = [];
+ }
+
+ static get properties()
+ {
+  return
+  {
+    ...super.properties,
+    pages: {type: Array}
+  };
+ }
+
+ return [super.styles,
+  css
+ ]
 
   constructor() {
     super();
