@@ -1,0 +1,146 @@
+/**
+ * Copyright 2025 Olivia Sarsfield
+ * @license Apache-2.0, see LICENSE for full text.
+ */
+import { LitElement, html, css } from 'lit';
+import { DDDSuper } from '@haxtheweb/d-d-d/d-d-d.js';
+import './portfolio-page.js';
+
+export class PortfolioPageWrapper extends DDDSuper(LitElement) {
+  static get tag() {
+    return "portfolio-page-wrapper";
+  }
+
+  constructor() {
+    super();
+    this.pages = [];
+    this.activePageId = null;
+  }
+
+  static get properties() {
+    return {
+      ...super.properties,
+      pages: { type: Array },
+      activePageId: { type: String, reflect: true }
+    };
+  }
+
+  static get styles() {
+    return [
+      super.styles, 
+      css`
+        :host {
+          display: block;
+          flex: 1;
+          overflow-y: auto;
+          scroll-snap-type: y mandatory;
+          height: 100vh;
+        }
+
+        .scroll-top-btn {
+          position: fixed;
+          bottom: 1rem;
+          right: 1rem;
+          background: #000000;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          font-size: 1.2rem;
+          cursor: pointer;
+          z-index: 100;
+        }
+
+        ::slotted(portfolio-page) {
+          display: block;
+          scroll-margin-top: 0;
+        }
+      `
+    ];
+  }
+  
+  render() {
+    return html`
+      <slot @slotchange="${this._handleSlotChange}"></slot>
+      <button class="scroll-top-btn" @click="${this._scrollToTop}">↑</button>
+    `;
+  }
+
+  firstUpdated(changedProperties) {
+    if (super.firstUpdated) {
+      super.firstUpdated(changedProperties);
+    }
+
+    this.addEventListener('page-added', this._handlePageAdded);
+    window.addEventListener('hashchange', () => this._handleHashChange());
+    
+
+    this._handleHashChange();
+  }
+
+  _handlePageAdded(e) {
+    const page = e.detail.value;
+    if (page && page.id && !this.pages.find(p => p.id === page.id)) {
+      this.pages = [...this.pages, page];
+    }
+  }
+
+  _handleSlotChange(e) {
+    const elements = e.target.assignedElements().filter(el => el.tagName.toLowerCase() === 'portfolio-page');
+    this.pages = elements;
+    
+    if (this.pages.length > 0 && !this.activePageId) {
+      this.activePageId = this.pages[0].id;
+      this._scrollToPage(this.activePageId);
+    }
+  }
+
+  _handleHashChange() {
+    const id = location.hash.replace('#', '');
+    if (id && this.pages.find(page => page.id === id)) {
+      this.activePageId = id;
+      this._scrollToPage(id);
+    } else if (this.pages.length > 0) {
+      // Default to first page if hash doesn't match any page
+      this.activePageId = this.pages[0].id;
+      history.replaceState(null, null, `#${this.activePageId}`);
+      this._scrollToPage(this.activePageId);
+    }
+  }
+
+  _scrollToPage(id) {
+    if (!id) return;
+    
+    const page = this.querySelector(`#${id}`);
+    if (page) {
+      page.scrollIntoView({ behavior: 'smooth' });
+      
+
+      this.pages.forEach(p => {
+        p.active = p.id === id;
+      });
+      
+
+      this.activePageId = id;
+
+      this.dispatchEvent(new CustomEvent('active-page-changed', {
+        bubbles: true,
+        composed: true,
+        detail: { id }
+      }));
+    }
+  }
+
+  _scrollToTop() {
+    if (this.pages.length > 0) {
+      const firstPage = this.pages[0];
+      this._scrollToPage(firstPage.id);
+      history.pushState(null, null, `#${firstPage.id}`);
+    } else {
+      this.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+}
+
+customElements.define(PortfolioPageWrapper.tag, PortfolioPageWrapper);

@@ -1,74 +1,95 @@
-import {LitElement, html, css} from 'lit';
-import {DDDSuper} from @haxtheweb/d-d-d/d-d-d.js';
+/**
+ * Copyright 2025 Olivia Sarsfield
+ * @license Apache-2.0, see LICENSE for full text.
+ */
+import { LitElement, html, css } from 'lit';
+import { DDDSuper } from '@haxtheweb/d-d-d/d-d-d.js';
 
 export class PortfolioPage extends DDDSuper(LitElement) {
-    static get tag()
-    {
-        return
-    }
-    constructor()
-    {
-        super();
-        this.title="";
-        this.pagenumber=null;
-    }
+  static get tag() {
+    return "portfolio-page";
+  }
 
-    static get properties()
-    {
-        return {
-            ...super.properties,
-            title: {type: String},
-            pagenumber: {type: Number}
-        };
-    }
+  constructor() {
+    super();
+    this.title = "";
+    this.pagenumber = null;
+    this.active = false;
+  }
 
-    static get styles()
-    {
-        return [super.styles, css`]
-        :host{
-            background-color: var(--ddd-theme-accent);
-            height: 100vh;
-            display: block;
+  static get properties() {
+    return {
+      ...super.properties,
+      title: { type: String },
+      pagenumber: { type: Number },
+      active: { type: Boolean, reflect: true }
+    };
+  }
 
+  static get styles() {
+    return [
+      super.styles, 
+      css`
+        :host {
+          background-color: white;
+          min-height: 100vh;
+          display: block;
+          scroll-snap-align: start;
         }
-        h1{
-            text-align: right;
-            font-family: var(--ddd-font-navigation);
-            color: rgb(204, 204, 253);
-            background-image: linear-gradient(to right, rgba(122, 43, 73, 0), rgba(40,0,100,0.264),
-            rgb(84, 43, 122));
+        
+        h1 {
+          text-align: center;
+          font-family: Georgia, 'Times New Roman', Times, serif;
+          color: #222;
+          padding: 1rem 0;
+          font-size: 2rem;
+          font-weight: 600;
+          margin-bottom: 2rem;
         }
-        .wrapper{
-            padding: 40px;
+
+        .wrapper {
+          padding: 2rem;
+          max-width: 800px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          min-height: calc(100vh - 6rem);
+        }
+        
+        .content {
+          width: 100%;
+          text-align: center;
+        }
+      `
+    ];
+  }
+  
+  render() {
+    return html`
+      <h1>${this.title}</h1>
+      <div class="wrapper">
+        <div class="content">
+          <slot></slot>
+        </div>
+      </div>
+    `;
+  }
+
+  firstUpdated(changedProperties) {
+    if (super.firstUpdated) {
+      super.firstUpdated(changedProperties);
+    }
     
-        }
-        `];
-    }
-    render()
-    {
-        return html`
-       <h1>${this.title}</h1>
-       <div class="wrapper">
-        <slot></slot>
-       </div>`;
-    }
+    this.dispatchEvent(new CustomEvent('page-added', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        value: this
+      }
+    }));
+  }
+}
 
-    firstUpdated(changedProperties)
-    {
-        if(super.firstUpdated)
-        {
-            if(super.firstUpdated)
-            {
-                super.firstUpdated(changedProperties);
-            }
-            this.dispatchEvent(new CustomEvent(`page-added`,
-                {
-                    bubbles:true,
-                    composed:true, 
-                    detail:{
-                        page:this
-                    }
-                }
-            ))
-        }
-    }
+customElements.define(PortfolioPage.tag, PortfolioPage);

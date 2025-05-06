@@ -1,45 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Demonstration for portfolio-sidebar-theme">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olivia Sarsfield Portfolio</title>
+  <script type="module" src="./portfolio-sidebar-theme.js"></script>
   <style>
-    :root, html, body {
-      margin: var(--ddd-spacing-0);
-      padding: var(--ddd-spacing-0);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-   p
-   {
-    padding-top: 10px;
-    padding-left: 30px;
-   }
-   </style>
-   </head>
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+    
+    @keyframes loadingPulse {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0.3; }
+    }
+    
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .loading-text {
+      font-family: 'Courier New', monospace;
+      animation: loadingPulse 2s infinite;
+      font-size: 1.5rem;
+    }
 
-  <script type ="module" src="portfolio-sidebar-theme.js"></script>
-<script type ="module" src="portfolio-page.js"></script>
+    /* Additional styles for portfolio components */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: normal;
+      line-height: 1.2;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .profile-pic {
+      transition: transform 0.3s ease;
+    }
+    
+    .profile-pic:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
 <body>
-    portfolio-sidebar-theme {
-      <portfolio-page title="About me" pagenumber = "1">
-        <p> My name is Olivia. </p>
-      </portfolio-page>
-      <portfolio-page title="About Me" pagenumber = "1">
-      </portfolio-page>
-      <portfolio-page title="CV" pagenumber = "2">
-        <p> CV stuff </p>
-        </portfolio-page>
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-text">Loading Portfolio...</div>
+  </div>
+  
+  <portfolio-sidebar-theme></portfolio-sidebar-theme>
 
-        <portfolio-page title="Research" pagenumber = "3">
-        <p> Research stuff </p>
-        </portfolio-page>
-      <portfolio-page title="Contact" pagenumber = "4">
-        <p> Contact stuff </p>
-        </portfolio-page>
-
-</portfolio-sidebar-theme>
+ 
 </body>
 </html>
