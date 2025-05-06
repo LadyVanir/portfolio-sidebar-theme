@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Olivia Sarsfield Portfolio</title>
-  <script type="module" src="./portfolio-sidebar-theme.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -14,38 +13,20 @@
     
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Georgia, 'Times New Roman', Times, serif;
       scroll-behavior: smooth;
       overflow: hidden;
       height: 100vh;
       width: 100vw;
     }
     
-    @keyframes loadingPulse {
-      0% { opacity: 0.3; }
-      50% { opacity: 0.7; }
-      100% { opacity: 0.3; }
-    }
-    
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #fff;
+    /* Basic portfolio layout */
+    portfolio-sidebar-theme {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+      width: 100%;
+      height: 100vh;
     }
     
-    .loading-text {
-      font-family: 'Courier New', monospace;
-      animation: loadingPulse 2s infinite;
-      font-size: 1.5rem;
-    }
-
     /* Additional styles for portfolio components */
     h1, h2, h3, h4, h5, h6 {
       font-weight: normal;
@@ -65,14 +46,13 @@
       transform: scale(1.05);
     }
   </style>
+  <!-- Import each component individually with proper order -->
+  <script type="module" src="./portfolio-sidebar.js"></script>
+  <script type="module" src="./portfolio-page.js"></script>
+  <script type="module" src="./portfolio-page-wrapper.js"></script>
+  <script type="module" src="./portfolio-sidebar-theme.js"></script>
 </head>
 <body>
-  <div id="loadingScreen" class="loading-screen">
-    <div class="loading-text">Loading Portfolio...</div>
-  </div>
-  
   <portfolio-sidebar-theme></portfolio-sidebar-theme>
-
- 
 </body>
 </html>
