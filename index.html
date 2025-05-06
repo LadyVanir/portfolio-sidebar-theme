@@ -14,45 +14,238 @@
     body {
       margin: 0;
       font-family: Georgia, 'Times New Roman', Times, serif;
-      scroll-behavior: smooth;
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
+      background-color: white;
+      color: #222;
     }
     
-    /* Basic portfolio layout */
-    portfolio-sidebar-theme {
+    .portfolio-container {
       display: flex;
-      width: 100%;
-      height: 100vh;
+      min-height: 100vh;
     }
     
-    /* Additional styles for portfolio components */
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: normal;
-      line-height: 1.2;
+    .sidebar {
+      width: 270px;
+      background-color: #222;
+      color: white;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     
-    a {
+    .sidebar-nav {
+      list-style: none;
+    }
+    
+    .sidebar-nav li {
+      padding: 0;
+    }
+    
+    .sidebar-nav a {
+      display: block;
+      padding: 1.5em;
+      color: white;
       text-decoration: none;
-      color: inherit;
+      text-align: center;
+      transition: background-color 0.3s;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+      background-color: #444;
+    }
+    
+    .content-area {
+      flex: 1;
+      padding: 2em;
+      overflow-y: auto;
+    }
+    
+    .page-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2em;
     }
     
     .profile-pic {
-      transition: transform 0.3s ease;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 1em;
     }
     
-    .profile-pic:hover {
-      transform: scale(1.05);
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    h3, h4 {
+      margin: 1.5rem 0 0.5rem 0;
+    }
+    
+    .section-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .job-title {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+    
+    iframe {
+      width: 100%;
+      max-width: 700px;
+      height: 500px;
+      border: none;
+    }
+    
+    @media (max-width: 768px) {
+      .portfolio-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        min-height: auto;
+      }
+      
+      .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+      }
+      
+      .sidebar-nav li {
+        flex: 0 0 auto;
+      }
+      
+      .sidebar-nav a {
+        padding: 1em;
+        white-space: nowrap;
+      }
     }
   </style>
-  <!-- Import each component individually with proper order -->
-  <script type="module" src="./portfolio-sidebar.js"></script>
-  <script type="module" src="./portfolio-page.js"></script>
-  <script type="module" src="./portfolio-page-wrapper.js"></script>
-  <script type="module" src="./portfolio-sidebar-theme.js"></script>
 </head>
 <body>
-  <portfolio-sidebar-theme></portfolio-sidebar-theme>
+  <div class="portfolio-container">
+    <div class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="#home" class="active">HOME</a></li>
+        <li><a href="#resume">RESUME</a></li>
+        <li><a href="#activities">ACTIVITIES</a></li>
+        <li><a href="#about">ABOUT ME</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+    
+    <div class="content-area">
+      <section id="home" class="page-section">
+        <img class="profile-pic" src="head%20shot%202.JPG" alt="Olivia Sarsfield" />
+        <h1>Olivia Sarsfield</h1>
+        <p class="job-title">Enterprise Technology Integration and German | The Pennsylvania State University</p>
+      </section>
+      
+      <section id="resume" class="page-section">
+        <div class="section-content">
+          <h2>Resume</h2>
+          <h3>Olivia Sarsfield</h3>
+          <p>York, PA | 717-318-7468</p>
+          <p>Email: ocs5196@psu.edu</p>
+          
+          <h4>Experience</h4>
+          <p><strong>Marketing Intern</strong> Project Management</p>
+          <p><strong>Verder Scientific-Haan, Germany</strong></p>
+
+          <h4>Education</h4>
+          <p>The Pennsylvania State University | B.S. Enterprise Technology Integration</p>
+          <p>The Pennsylvania State University | B.S. German</p>
+
+          <h4>Skills</h4>
+          <p>MS Office | SQL | Photoshop | English, Spanish, German</p>
+        </div>
+      </section>
+      
+      <section id="activities" class="page-section">
+        <div class="section-content">
+          <h2>Activities</h2>
+          <p><strong>Organizations and Clubs:</strong></p>
+          <p><strong>Penn State Thespians</strong> Web Chair 2025-Present, Member 2024-Present</p>
+          <p><strong>No Refund Theatre</strong> Treasurer 2025-Present, THON Chair 2023-2024, Member 2023-Present</p>
+        </div>
+      </section>
+      
+      <section id="about" class="page-section">
+        <div class="section-content">
+          <h2>About Me</h2>
+          <div style="font-size: 1.2rem; line-height: 1.8;">
+            Hi! My name is Olivia, and I am a second-year student pursuing a major in
+            Enterprise Technology Integration and German with a concentration in business.
+            I have an appreciation for emerging technologies and believe that it is vital
+            to grow and adapt with new innovations. I have an interest in combining my love
+            of languages and linguistics with technology.
+          </div>
+        </div>
+      </section>
+      
+      <section id="contact" class="page-section">
+        <div class="section-content">
+          <h2>Contact</h2>
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScJLa3oywpBHL6R1h0xdoibl-QOlBQYgz6LXKECjXnmRDceEA/viewform?usp=header"
+            title="Contact Form">
+            Loading…
+          </iframe>
+
+          <div style="margin-top:2rem;">
+            <p>Email: ocs5196@psu.edu</p>
+            <p>Phone: 717-318-7468</p>
+            <p><a href="https://www.linkedin.com/in/olivia-sarsfield/" target="_blank" style="color: #222;">LinkedIn</a> |
+              <a href="https://github.com/LadyVanir" target="_blank" style="color: #222;">GitHub</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // Simple navigation script
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all navigation links
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      
+      // Add click event to each link
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Remove active class from all links
+          navLinks.forEach(l => l.classList.remove('active'));
+          
+          // Add active class to clicked link
+          this.classList.add('active');
+        });
+      });
+      
+      // Check hash on page load
+      const hash = window.location.hash || '#home';
+      const activeLink = document.querySelector(`.sidebar-nav a[href="${hash}"]`);
+      if (activeLink) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        activeLink.classList.add('active');
+      }
+    });
+  </script>
 </body>
 </html>
