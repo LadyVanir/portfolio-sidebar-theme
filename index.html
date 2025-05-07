@@ -24,43 +24,49 @@
     }
     
     .sidebar {
-      width: 270px;
+      width: 220px;
       background-color: #222;
       color: white;
       padding: 0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
     }
     
     .sidebar-nav {
       list-style: none;
+      margin-top: auto;
+      margin-bottom: auto;
     }
     
     .sidebar-nav li {
       padding: 0;
+      border-bottom: 1px solid #333;
+    }
+    
+    .sidebar-nav li:first-child {
+      border-top: 1px solid #333;
     }
     
     .sidebar-nav a {
       display: block;
-      padding: 1.5em;
+      padding: 1.5em 0;
       color: white;
       text-decoration: none;
       text-align: center;
       transition: background-color 0.3s;
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: 1px;
+      font-size: 1em;
     }
     
     .sidebar-nav a:hover,
     .sidebar-nav a.active {
-      background-color: #444;
+      background-color: #4d0000;
     }
     
     .content-area {
       flex: 1;
-      padding: 2em;
       overflow-y: auto;
     }
     
@@ -79,21 +85,25 @@
       height: 200px;
       object-fit: cover;
       border-radius: 50%;
-      margin-bottom: 1em;
+      margin-bottom: 2em;
+      border: 5px solid #4d0000;
     }
     
     h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
+      color: #222;
     }
     
     h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
+      color: #4d0000;
     }
     
     h3, h4 {
       margin: 1.5rem 0 0.5rem 0;
+      color: #4d0000;
     }
     
     .section-content {
@@ -114,6 +124,39 @@
       border: none;
     }
     
+    /* Maroon accents */
+    .accent {
+      color: #4d0000;
+    }
+    
+    strong {
+      color: #4d0000;
+    }
+    
+    a {
+      color: #4d0000;
+      transition: color 0.3s;
+    }
+    
+    a:hover {
+      color: #800000;
+    }
+    
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: #4d0000;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 100;
+    }
+    
     @media (max-width: 768px) {
       .portfolio-container {
         flex-direction: column;
@@ -127,10 +170,18 @@
       .sidebar-nav {
         display: flex;
         overflow-x: auto;
+        margin: 0;
       }
       
       .sidebar-nav li {
         flex: 0 0 auto;
+        border-bottom: none;
+        border-right: 1px solid #333;
+      }
+      
+      .sidebar-nav li:first-child {
+        border-top: none;
+        border-left: 1px solid #333;
       }
       
       .sidebar-nav a {
@@ -213,16 +264,18 @@
           <div style="margin-top:2rem;">
             <p>Email: ocs5196@psu.edu</p>
             <p>Phone: 717-318-7468</p>
-            <p><a href="https://www.linkedin.com/in/olivia-sarsfield/" target="_blank" style="color: #222;">LinkedIn</a> |
-              <a href="https://github.com/LadyVanir" target="_blank" style="color: #222;">GitHub</a></p>
+            <p><a href="https://www.linkedin.com/in/olivia-sarsfield/" target="_blank">LinkedIn</a> |
+              <a href="https://github.com/LadyVanir" target="_blank">GitHub</a></p>
           </div>
         </div>
       </section>
     </div>
   </div>
 
+  <button class="scroll-top-btn" onclick="scrollToTop()">↑</button>
+
   <script>
-    // Simple navigation script
+    // Navigation script
     document.addEventListener('DOMContentLoaded', function() {
       // Get all navigation links
       const navLinks = document.querySelectorAll('.sidebar-nav a');
@@ -244,8 +297,46 @@
       if (activeLink) {
         navLinks.forEach(l => l.classList.remove('active'));
         activeLink.classList.add('active');
+        
+        // Scroll to section
+        setTimeout(() => {
+          document.querySelector(hash).scrollIntoView();
+        }, 100);
       }
+      
+      // Add scroll event to update active link
+      window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('.page-section');
+        let currentSection = '';
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          
+          if (window.pageYOffset >= sectionTop - 200 && 
+              window.pageYOffset < sectionTop + sectionHeight - 200) {
+            currentSection = '#' + section.getAttribute('id');
+          }
+        });
+        
+        if (currentSection) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === currentSection) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
     });
+    
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   </script>
 </body>
 </html>
