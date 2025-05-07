@@ -13,9 +13,9 @@
     
     body {
       margin: 0;
-      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-      background-color: rgb(156, 143, 143);
-      color: #000000;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      background-color: white;
+      color: #222;
     }
     
     .portfolio-container {
@@ -24,9 +24,9 @@
     }
     
     .sidebar {
-      width: 270px;
-      background-color: #000000;
-      color: rgb(156, 143, 143);
+      width: 220px;
+      background-color: #222;
+      color: white;
       padding: 0;
       min-height: 100vh;
       display: flex;
@@ -41,19 +41,21 @@
     
     .sidebar-nav li {
       padding: 0;
-      border-bottom: 1px solid #000000;
+      border-bottom: 1px solid #333;
     }
     
     .sidebar-nav li:first-child {
-      border-top: 2px solid #000000;
+      border-top: 1px solid #333;
     }
     
     .sidebar-nav a {
       display: block;
-      padding: 2px;
-      color: rgb(156, 143, 143);
+      padding: 1.5em 0;
+      color: white;
       text-decoration: none;
       text-align: center;
+      transition: background-color 0.3s;
+      font-weight: 400;
       letter-spacing: 1px;
       font-size: 1em;
     }
@@ -75,54 +77,54 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 2px;
-      max-width: 300px;
-      margin: 0 auto;
+      padding: 2em;
     }
     
     .profile-pic {
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
       border-radius: 50%;
-      margin-bottom: 2px;
-      border: 6px solid #4d0000;
+      margin-bottom: 2em;
+      border: 5px solid #4d0000;
     }
     
     h1 {
-      font-size: large;
-      margin-bottom: 20px;
-      color: #000000;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #222;
     }
     
     h2 {
-      font-size: medium;
+      font-size: 2rem;
       margin-bottom: 1.5rem;
       color: #4d0000;
     }
     
     h3, h4 {
-      font-size: small;
+      margin: 1.5rem 0 0.5rem 0;
       color: #4d0000;
     }
     
     .section-content {
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
     }
     
-    .section-content p {
-      font-size: small;
-      margin-bottom: 20px;
+    .job-title {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 2rem;
     }
     
     iframe {
       width: 100%;
-      max-width: 600px;
-      height: 450px;
+      max-width: 700px;
+      height: 500px;
       border: none;
     }
     
+    /* Maroon accents */
     .accent {
       color: #4d0000;
     }
@@ -145,7 +147,7 @@
       bottom: 1rem;
       right: 1rem;
       background: #4d0000;
-      color: rgb(156, 143, 143);
+      color: white;
       border: none;
       border-radius: 50%;
       width: 40px;
@@ -155,7 +157,7 @@
       z-index: 100;
     }
     
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .portfolio-container {
         flex-direction: column;
       }
@@ -174,17 +176,17 @@
       .sidebar-nav li {
         flex: 0 0 auto;
         border-bottom: none;
-        border-right: 1px solid #000000;
+        border-right: 1px solid #333;
       }
       
       .sidebar-nav li:first-child {
         border-top: none;
-        border-left: 2px solid #000000;
+        border-left: 1px solid #333;
       }
       
       .sidebar-nav a {
-        padding: 2px;
-        
+        padding: 1em;
+        white-space: nowrap;
       }
     }
   </style>
@@ -203,7 +205,7 @@
     
     <div class="content-area">
       <section id="home" class="page-section">
-        <img class="profile-pic" src="https://media.licdn.com/dms/image/v2/D4E03AQHO9K3uy09YVw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726688531853?e=1752105600&v=beta&t=psZqE6Pkwk8YZOj5_tvkfW91LPfi6CHadoZ_4UtXsfM" alt="Olivia Sarsfield" />
+        <img class="profile-pic" src="head%20shot%202.JPG" alt="Olivia Sarsfield" />
         <h1>Olivia Sarsfield</h1>
         <p class="job-title">Enterprise Technology Integration and German | The Pennsylvania State University</p>
       </section>
@@ -240,7 +242,7 @@
       <section id="about" class="page-section">
         <div class="section-content">
           <h2>About Me</h2>
-          <div style="font-size: small; line-height: 1.5;">
+          <div style="font-size: 1.2rem; line-height: 1.8;">
             Hi! My name is Olivia, and I am a second-year student pursuing a major in
             Enterprise Technology Integration and German with a concentration in business.
             I have an appreciation for emerging technologies and believe that it is vital
@@ -273,27 +275,36 @@
   <button class="scroll-top-btn" onclick="scrollToTop()">↑</button>
 
   <script>
+    // Navigation script
     document.addEventListener('DOMContentLoaded', function() {
+      // Get all navigation links
       const navLinks = document.querySelectorAll('.sidebar-nav a');
       
+      // Add click event to each link
       navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
+          // Remove active class from all links
           navLinks.forEach(l => l.classList.remove('active'));
+          
+          // Add active class to clicked link
           this.classList.add('active');
         });
       });
       
+      // Check hash on page load
       const hash = window.location.hash || '#home';
       const activeLink = document.querySelector(`.sidebar-nav a[href="${hash}"]`);
       if (activeLink) {
         navLinks.forEach(l => l.classList.remove('active'));
         activeLink.classList.add('active');
         
+        // Scroll to section
         setTimeout(() => {
           document.querySelector(hash).scrollIntoView();
         }, 100);
       }
       
+      // Add scroll event to update active link
       window.addEventListener('scroll', function() {
         const sections = document.querySelectorAll('.page-section');
         let currentSection = '';
@@ -318,7 +329,8 @@
         }
       });
     });
-      
+    
+    // Scroll to top function
     function scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -328,10 +340,3 @@
   </script>
 </body>
 </html>
-    
-    
-
-    
-
-
-      
