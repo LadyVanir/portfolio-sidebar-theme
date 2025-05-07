@@ -259,13 +259,13 @@
     </div>
     
     <div class="content-area">
-      <section id="home" class="page-section">
+      <section id="screen-1" class="page-section">
         <img class="profile-pic" src="https://media.licdn.com/dms/image/v2/D4E03AQHO9K3uy09YVw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726688531853?e=1752105600&v=beta&t=psZqE6Pkwk8YZOj5_tvkfW91LPfi6CHadoZ_4UtXsfM" alt="Olivia Sarsfield" />
         <h1>Olivia Sarsfield</h1>
         <p class="job-title">Enterprise Technology Integration and German | The Pennsylvania State University</p>
       </section>
       
-      <section id="resume" class="page-section">
+      <section id="screen-2" class="page-section">
         <div class="section-content">
           <h2>Resume</h2>
           <h3>Olivia Sarsfield</h3>
@@ -285,7 +285,7 @@
         </div>
       </section>
       
-      <section id="activities" class="page-section">
+      <section id="screen-3" class="page-section">
         <div class="section-content">
           <h2>Activities</h2>
           <p><strong>Organizations and Clubs:</strong></p>
@@ -294,7 +294,7 @@
         </div>
       </section>
       
-      <section id="about" class="page-section">
+      <section id="screen-4" class="page-section">
         <div class="section-content">
           <h2>About Me</h2>
           <div style="font-size: 1.2rem; line-height: 1.8;">
@@ -307,7 +307,7 @@
         </div>
       </section>
       
-      <section id="contact" class="page-section">
+      <section id="screen-5" class="page-section">
         <div class="section-content">
           <h2>Contact</h2>
           <iframe
@@ -340,7 +340,7 @@
         });
       });
 
-      const hash = window.location.hash || '#home';
+      const hash = window.location.hash || '#screen-1';
       const activeLink = document.querySelector(`.sidebar-nav a[href="${hash}"]`);
       if (activeLink) {
         navLinks.forEach(l => l.classList.remove('active'));
