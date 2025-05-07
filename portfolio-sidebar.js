@@ -18,8 +18,8 @@ export class PortfolioSidebar extends DDDSuper(I18NMixin(LitElement)) {
       }
 
       .wrapper {
-        width: 300px;
-        height: 100vh;
+        width: 100%;
+        height: auto;
         top: 0;
         overflow-x: hidden;
         background: linear-gradient(
@@ -30,33 +30,46 @@ export class PortfolioSidebar extends DDDSuper(I18NMixin(LitElement)) {
         background-color: black;
         display: flex;
         text-align: center;
-        border-right: 10px solid black;
+        border-bottom: 6px solid black;
         position: fixed;
         left: 0;
+        z-index: 1000;
       }
 
       .links {
-        margin: auto;
+        margin: 0 auto;
+        padding: 10px 0;
         width: 100%;
+        display: flex;
+        justify-content: center;
       }
       
       ::slotted(a) {
         display: block;
-        color: darkgray;
+        color: #a9a9a9;
         text-decoration: none;
-        padding: 15px 0;
-        margin: 10px 0;
-        font-size: 16px;
-      
+        padding: 10px 20px;
+        margin: 0 5px;
+        font-size: large;
       }
       
       ::slotted(a:hover) {
-        background-color: darkgray;
+        background-color: darkred;
       }
       
       ::slotted(a.active) {
-        background-color: darkred;
+        background-color: #800000;
         color: white;
+      }
+      
+      @media (max-width: 750px) {
+        .links {
+          flex-direction: column;
+        }
+        
+        ::slotted(a) {
+          margin: 2px 0;
+        }
       }
     `;
   }
