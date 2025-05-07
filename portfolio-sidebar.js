@@ -15,6 +15,12 @@ export class PortfolioSidebar extends DDDSuper(I18NMixin(LitElement)) {
     return css`
       :host {
         display: block;
+        position: fixed;
+        width: 270px;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 1000;
       }
 
       .wrapper {
