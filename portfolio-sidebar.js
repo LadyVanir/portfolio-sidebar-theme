@@ -1,11 +1,8 @@
-/**
- * Copyright 2025 Olivia Sarsfield
- * @license Apache-2.0, see LICENSE for full text.
- */
 import { LitElement, html, css } from 'lit';
 import { DDDSuper } from '@haxtheweb/d-d-d/d-d-d.js';
+import { I18NMixin } from '@haxtheweb/i18n-manager/lib/I18NMixin.js';
 
-export class PortfolioSidebar extends DDDSuper(LitElement) {
+export class PortfolioSidebar extends DDDSuper(I18NMixin(LitElement)) {
   static get tag() {
     return "portfolio-sidebar";
   }
@@ -18,65 +15,48 @@ export class PortfolioSidebar extends DDDSuper(LitElement) {
     return css`
       :host {
         display: block;
-        height: 100%;
       }
 
       .wrapper {
-        width: 270px;
+        width: 300px;
         height: 100vh;
         top: 0;
-        background: #222;
-        color: white;
+        overflow-x: hidden;
+        background: linear-gradient(
+          rgba(0, 0, 0, 0.7), 
+          rgba(0, 0, 0, 0.7)
+        ),
+        url(https://wallpaperaccess.com/full/1153069.jpg);
+        background-color: black;
         display: flex;
-        flex-direction: column;
         text-align: center;
+        border-right: 10px solid black;
+        position: fixed;
+        left: 0;
       }
 
       .links {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100%;
-      }
-
-      ::slotted(a), ::slotted(button) {
-        text-decoration: none;
-        color: white;
-        padding: 1.5em;
-        display: block;
-        cursor: pointer;
-        font-weight: 500;
-        letter-spacing: 1px;
-        background: none;
-        border: none;
-        font-size: 1em;
-        text-align: center;
-        transition: background 0.3s;
+        margin: auto;
         width: 100%;
-        box-sizing: border-box;
       }
-
-      ::slotted(a:hover), ::slotted(button:hover),
-      ::slotted(a.active), ::slotted(button.active) {
-        background: #444;
+      
+      ::slotted(a) {
+        display: block;
+        color: darkgray;
+        text-decoration: none;
+        padding: 15px 0;
+        margin: 10px 0;
+        font-size: 16px;
+      
       }
-
-      @media (max-width: 768px) {
-        .wrapper {
-          width: 100%;
-          height: auto;
-        }
-
-        .links {
-          flex-direction: row;
-          overflow-x: auto;
-          justify-content: flex-start;
-        }
-
-        ::slotted(a), ::slotted(button) {
-          padding: 1em;
-          white-space: nowrap;
-        }
+      
+      ::slotted(a:hover) {
+        background-color: darkgray;
+      }
+      
+      ::slotted(a.active) {
+        background-color: darkred;
+        color: white;
       }
     `;
   }
@@ -92,4 +72,4 @@ export class PortfolioSidebar extends DDDSuper(LitElement) {
   }
 }
 
-customElements.define(PortfolioSidebar.tag, PortfolioSidebar);
+globalThis.customElements.define(PortfolioSidebar.tag, PortfolioSidebar);
